@@ -1,0 +1,14 @@
+# Config
+.idea
+.vscode
+
+# Docker
+/.env
+
+/.env.*.local
+
+# Database
+database
+
+#logs
+*.log

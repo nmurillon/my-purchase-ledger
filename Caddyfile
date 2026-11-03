@@ -1,0 +1,27 @@
+{$DOMAIN} {
+
+  encode gzip
+
+  header {
+    X-Content-Type-Options nosniff
+    X-Frame-Options DENY
+    Referrer-Policy no-referrer-when-downgrade
+  }
+
+  # -------------------------
+  # Backend - FrankenPHP
+  # -------------------------
+  # handle keeps fullpath
+  handle / {
+    reverse_proxy {$BACKEND} {
+      header_up X-Forwarded-Proto https
+      header_up X-Forwarded-Host {host}
+      header_up X-Forwarded-Port 443
+    }
+  }
+
+  # -------------------------
+  # HTTPS (auto dev/prod behavior)
+  # -------------------------
+  # tls {$TLS_MODE}
+}
